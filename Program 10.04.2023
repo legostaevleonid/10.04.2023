@@ -1,0 +1,104 @@
+
+
+Module Program
+    Sub Main(args As String())
+        Console.WriteLine("Enter five numbers:")
+        Dim numbers(4) As String
+        Dim n As Integer
+        For i = 0 To 4
+            numbers(i) = Console.ReadLine
+        Next
+        Console.WriteLine("Which number do you want to search for?")
+        n = Console.ReadLine
+        Console.WriteLine("The number you are looking for is in the {0} index", find(numbers, n))
+
+        Console.WriteLine("index of the number {0}, maximum number {1}", Max(numbers), numbers(Max(numbers)))
+        Console.WriteLine("index of the number {0}, minimum number {1}", Min(numbers), numbers(Min(numbers)))
+
+        Console.WriteLine()
+        printRevers(numbers)
+        Console.WriteLine()
+        print(numbers)
+        Console.WriteLine()
+        add(numbers, "adding", 2)
+        print(numbers)
+        Console.WriteLine()
+        delete(numbers, 2)
+        print(numbers)
+        Dim minindex As Integer = Min(numbers)
+        If minindex > 0 Then
+            Dim boofer As String = numbers(0)
+            numbers(0) = numbers(minindex)
+            numbers(minindex) = boofer
+        End If
+
+    End Sub
+
+    Sub printRevers(list As String())
+        For i = list.Length - 1 To 0 Step -1
+            Console.WriteLine(list(i))
+        Next
+    End Sub
+
+    Sub print(list As Integer())
+
+        For i = 0 To list.Length - 1
+            Console.WriteLine(list(i))
+        Next
+    End Sub
+    Sub print(list As String())
+        For i = 0 To list.Length - 1
+            Console.WriteLine(list(i))
+        Next
+    End Sub
+    Sub printReverse(list As String())
+        For i = list.Length - 1 To 0 Step -1
+            Console.WriteLine(list(i))
+        Next
+    End Sub
+    Function find(list As String(), n As Integer)
+        For i = 0 To list.Length - 1
+            If list(i) = n Then
+                find = i
+                Exit Function
+            End If
+        Next
+        find = -1
+    End Function
+
+    Function Max(list As String()) As Integer
+
+        For i = 0 To list.Length - 1
+            If list(i) > list(Max) Then
+                Max = i
+            End If
+        Next
+    End Function
+    Function Min(list As String(), Optional start As Integer = 0) As Integer
+        Min = start
+        For i = start + 1 To list.Length - 1
+            If list(i) < list(Min) Then
+                Min = i
+            End If
+        Next
+
+    End Function
+
+    Sub add(ByRef list As String(), val As String, index As Integer)
+        If index < 0 Or index > list.Length Then Exit Sub
+        ReDim Preserve list(list.Length)
+        For i = list.Length - 1 To index + 1 Step -1
+            list(i) = list(i - 1)
+        Next
+        list(index) = val
+    End Sub
+    Sub delete(ByRef list As String(), index As Integer)
+        If index < 0 Or index >= list.Length Then Exit Sub
+
+        For i As Integer = index To list.Length - 2
+            list(i) = list(i + 1)
+        Next
+
+        ReDim Preserve list(list.Length - 2)
+    End Sub
+    
